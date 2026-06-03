@@ -1,15 +1,86 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notitwitt</title>
+    <title>Notitwitt - Las últimas noticias</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <H1>
-Notitwitt
+    <!-- ENCABEZADO Y MENÚ -->
+    <header>
+        <div class="logo">
+            <h1>Notitwitt</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Política</a></li>
+                <li><a href="#">Cultura</a></li>
+                <li><a href="#">Entretenimiento</a></li>
+                <li><a href="#">Deporte</a></li>
+                <li><a href="#">Local</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    </H1>
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="contenedor-principal">
+        
+        <!-- SECCIÓN DE NOTICIAS GENERALES -->
+        <main class="noticias">
+            <h2>Últimas Noticias</h2>
+            <div class="grid-noticias" id="contenedor-noticias">
+                <!-- Aquí JavaScript insertará las noticias desde la base de datos -->
+                <article class="tarjeta-noticia">
+                    <img src="https://via.placeholder.com/300x150" alt="Noticia">
+                    <span class="etiqueta">Política</span>
+                    <h3>Ejemplo de Noticia Importante del día</h3>
+                    <p>Un breve resumen de la noticia para que el lector se interese en leer más...</p>
+                    <a href="#">Leer más</a>
+                </article>
+                <article class="tarjeta-noticia">
+                    <img src="https://via.placeholder.com/300x150" alt="Noticia">
+                    <span class="etiqueta">Deportes</span>
+                    <h3>El equipo local gana el campeonato</h3>
+                    <p>Un partido emocionante que dejó a todos los aficionados al borde de su asiento...</p>
+                    <a href="#">Leer más</a>
+                </article>
+            </div>
+        </main>
+
+        <!-- COLUMNA DE OPINIÓN (BARRA LATERAL) -->
+        <aside class="opinion">
+            <h2>Columnas de Opinión</h2>
+            <div id="contenedor-opinion">
+                <article class="tarjeta-opinion">
+                    <h4>El futuro de la ciudad</h4>
+                    <p>Por: Juan Pérez</p>
+                </article>
+                <article class="tarjeta-opinion">
+                    <h4>Cine y cultura moderna</h4>
+                    <p>Por: María Gómez</p>
+                </article>
+            </div>
+        </aside>
+
+    </div>
+
+    <!-- SECCIÓN DE BOLETÍN (NEWSLETTER) -->
+    <section class="boletin">
+        <h2>Suscríbete a nuestro Boletín</h2>
+        <p>Recibe las mejores noticias directamente en tu correo.</p>
+        <form id="form-boletin">
+            <input type="email" id="email-boletin" placeholder="Tu correo electrónico" required>
+            <button type="submit">Suscribirme</button>
+        </form>
+    </section>
+
+    <!-- PIE DE PÁGINA -->
+    <footer>
+        <p>&copy; 2024 Notitwitt. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Aquí conectaremos el JavaScript después -->
+    <!-- <script src="app.js"></script> -->
 </body>
 </html>
