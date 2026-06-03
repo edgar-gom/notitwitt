@@ -1,24 +1,45 @@
-/* Estilos generales */
+/* --- PALETA DE COLORES Y RESETEO --- */
+:root {
+    --fondo-principal: #0f172a; /* Azul muy oscuro casi negro */
+    --fondo-tarjetas: #1e293b; /* Azul grisáceo para leer cómodo */
+    --fondo-header: #020617; /* Azul ultra oscuro */
+    --texto-titulos: #f8fafc; /* Blanco suave */
+    --texto-parrafos: #cbd5e1; /* Gris claro que no cansa la vista */
+    --azul-acento: #3b82f6; /* Azul vibrante para botones y logos */
+    --azul-hover: #2563eb;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f4f4f9;
-    color: #333;
+    background-color: var(--fondo-principal);
+    color: var(--texto-parrafos);
+    line-height: 1.6;
 }
 
-/* Encabezado y Menú */
+h1, h2, h3, h4 {
+    color: var(--texto-titulos);
+    margin-bottom: 0.5rem;
+}
+
+/* --- ENCABEZADO Y MENÚ --- */
 header {
-    background-color: #1a1a1a;
-    color: white;
+    background-color: var(--fondo-header);
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    border-bottom: 2px solid var(--fondo-tarjetas);
+}
+
+header .logo img {
+    height: 40px; /* Altura del logo controlada */
+    border-radius: 4px;
 }
 
 nav ul {
@@ -28,16 +49,17 @@ nav ul {
 }
 
 nav a {
-    color: white;
+    color: var(--texto-titulos);
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 500;
+    transition: color 0.3s;
 }
 
 nav a:hover {
-    color: #007bff;
+    color: var(--azul-acento);
 }
 
-/* Layout Principal (Noticias a la izq, Opinión a la der) */
+/* --- LAYOUT PRINCIPAL --- */
 .contenedor-principal {
     display: flex;
     gap: 2rem;
@@ -47,81 +69,148 @@ nav a:hover {
 }
 
 .noticias {
-    flex: 70%; /* Ocupa el 70% del ancho */
+    flex: 70%;
 }
 
 .opinion {
-    flex: 30%; /* Ocupa el 30% del ancho */
-    background-color: white;
+    flex: 30%;
+    background-color: var(--fondo-tarjetas);
     padding: 1.5rem;
-    border-left: 4px solid #007bff;
-    border-radius: 5px;
+    border-top: 4px solid var(--azul-acento);
+    border-radius: 8px;
 }
 
-/* Tarjetas de noticias */
+/* --- TARJETAS DE NOTICIAS --- */
 .grid-noticias {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 1.5rem;
     margin-top: 1rem;
 }
 
 .tarjeta-noticia {
-    background: white;
+    background: var(--fondo-tarjetas);
     padding: 1rem;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.tarjeta-noticia:hover {
+    transform: translateY(-5px);
 }
 
 .tarjeta-noticia img {
     width: 100%;
     border-radius: 5px;
+    margin-bottom: 0.5rem;
 }
 
 .etiqueta {
-    background: #007bff;
+    background: var(--azul-acento);
     color: white;
     padding: 3px 8px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     border-radius: 3px;
-    display: inline-block;
-    margin-top: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
 }
 
-.tarjeta-noticia h3 { margin: 10px 0; }
-.tarjeta-noticia p { font-size: 0.9rem; margin-bottom: 10px;}
+.tarjeta-noticia a {
+    color: var(--azul-acento);
+    text-decoration: none;
+    font-weight: bold;
+}
 
-/* Boletín */
+/* --- OPINIÓN --- */
+.tarjeta-opinion {
+    border-bottom: 1px solid #334155;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+}
+
+.tarjeta-opinion .autor {
+    color: var(--azul-acento);
+    font-size: 0.85rem;
+}
+
+/* --- BOLETÍN --- */
 .boletin {
-    background-color: #e9ecef;
+    background-color: var(--fondo-tarjetas);
     text-align: center;
     padding: 3rem 1rem;
-    margin-top: 2rem;
+    border-top: 1px solid #334155;
 }
 
 .boletin form {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .boletin input {
-    padding: 0.5rem;
-    width: 300px;
-    border: 1px solid #ccc;
+    padding: 0.8rem;
+    width: 100%;
+    max-width: 350px;
+    border: none;
     border-radius: 4px;
+    background-color: var(--fondo-principal);
+    color: var(--texto-titulos);
 }
 
 .boletin button {
-    padding: 0.5rem 1rem;
-    background-color: #007bff;
+    padding: 0.8rem 1.5rem;
+    background-color: var(--azul-acento);
     color: white;
+    font-weight: bold;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    transition: background 0.3s;
+}
+
+.boletin button:hover {
+    background-color: var(--azul-hover);
 }
 
 footer {
     text-align: center;
-    padding: 1rem;
-    background-color: #1a1a1a;
-    color: white;
+    padding: 1.5rem;
+    background-color: var(--fondo-header);
+    font-size: 0.9rem;
+}
+
+/* ==========================================
+   DISEÑO RESPONSIVE (Para Celulares y Tablets)
+   ========================================== */
+@media (max-width: 768px) {
+    /* El encabezado se apila */
+    header {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /* El menú de navegación puede hacer scroll horizontal en móviles */
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    /* La estructura principal de noticias y opinión se apila una sobre otra */
+    .contenedor-principal {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    /* El botón y el campo del boletín se apilan en celulares pequeños */
+    .boletin form {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .boletin button {
+        width: 100%;
+        max-width: 350px;
+    }
 }
