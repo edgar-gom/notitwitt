@@ -1,8 +1,8 @@
-// 1. Importamos Firebase directamente desde internet (CDN)
+// 1. Importamos Firebase
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-// 2. Tu configuración exacta (las llaves de tu imagen)
+// 2. Tu configuración
 const firebaseConfig = {
   apiKey: "AIzaSyDOMadyrXQYw8bd7z93l159AWHVLKhsESI",
   authDomain: "notitwitt-c3970.firebaseapp.com",
@@ -12,41 +12,71 @@ const firebaseConfig = {
   appId: "1:944260835653:web:6a778bd832b3c0eb8ff62c"
 };
 
-// 3. Inicializamos Firebase y la Base de Datos
+// 3. Inicializamos Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // ==========================================
 // LÓGICA DEL BOLETÍN (NEWSLETTER)
 // ==========================================
-
-// Atrapamos el formulario y el cuadro de texto del HTML
 const formBoletin = document.getElementById('form-boletin');
 const emailInput = document.getElementById('email-boletin');
 
-// Le decimos qué hacer cuando alguien hace clic en "Suscribirme"
 formBoletin.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Esto evita que la página parpadee o se recargue
-
+    e.preventDefault(); 
     const correoUsuario = emailInput.value;
     const boton = formBoletin.querySelector('button');
-    boton.textContent = "Guardando..."; // Cambiamos el texto del botón temporalmente
+    boton.textContent = "Guardando..."; 
 
     try {
-        // Guardamos el correo en una colección llamada "suscriptores" en Firebase
         await addDoc(collection(db, "suscriptores"), {
             email: correoUsuario,
             fechaSuscripcion: new Date()
         });
-
-        // Le avisamos al usuario que funcionó
         alert("¡Excelente! Te has suscrito a Notitwitt con el correo: " + correoUsuario);
-        formBoletin.reset(); // Limpiamos el cuadro de texto
-        boton.textContent = "Suscribirme"; // Regresamos el botón a la normalidad
-
+        formBoletin.reset(); 
+        boton.textContent = "Suscribirme"; 
     } catch (error) {
         console.error("Error al guardar: ", error);
-        alert("Hubo un pequeño error. Por favor intenta de nuevo.");
+        alert("Hubo un error. Por favor intenta de nuevo.");
         boton.textContent = "Suscribirme";
     }
-});
+}); // <-- ¡Aquí termina la función del boletín correctamente!
+
+
+// ==========================================
+// LÓGICA PARA CARGAR NOTICIAS
+// ==========================================
+const contenedorNoticias = document.getElementById('contenedor-noticias');
+
+async function cargarNoticias() {
+    try {
+        const querySnapshot = await getDocs(collection(db, "noticias"));
+        
+        if (!querySnapshot.empty) {
+            contenedorNoticias.innerHTML = ''; // Borra las noticias falsas
+        }
+
+        querySnapshot.forEach((doc) => {
+            const noticia = doc.data(); 
+            
+            if (noticia.es_opinion === false) {
+                const articuloHTML = `
+                    <article class="tarjeta-noticia">
+                        <img src="${noticia.imagen}" alt="Imagen de la noticia">
+                        <span class="etiqueta">${noticia.categoria}</span>
+                        <h3>${noticia.titulo}</h3>
+                        <p>${noticia.resumen}</p>
+                        <a href="articulo.html?id=${doc.id}">Leer más</a>
+                    </article>
+                `;
+                contenedorNoticias.innerHTML += articuloHTML;
+            }
+        });
+    } catch (error) {
+        console.error("Error al cargar las noticias: ", error);
+    }
+}
+
+// Ejecutamos la función de noticias apenas se abre la página
+cargarNoticias();

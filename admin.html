@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Panel Editor - Notitwitt</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="imagen_circular_recortada.png" alt="Logo de Notitwitt"> <h2>Notitwitt - Editor</h2></div>
+        <nav>
+            <ul>
+                <li><a href="index.html">← Volver al Sitio</a></li>
+                <li><button id="btn-logout" style="background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Cerrar Sesión</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenedor-principal" style="flex-direction: column; align-items: center;">
+        
+        <!-- Formulario -->
+        <div class="formulario-admin" style="margin-bottom: 2rem;">
+            <h2>Escribir Nueva Noticia</h2>
+            <form id="form-noticia">
+                <label>Título:</label>
+                <input type="text" id="titulo" required>
+
+                <label>Resumen Corto (Para la página principal):</label>
+                <textarea id="resumen" rows="2" required></textarea>
+
+                <label>Contenido Completo (Para leer la noticia):</label>
+                <textarea id="contenido" rows="6" required></textarea>
+
+                <label>Categoría:</label>
+                <select id="categoria">
+                    <option value="Política">Política</option>
+                    <option value="Cultura">Cultura</option>
+                    <option value="Entretenimiento">Entretenimiento</option>
+                    <option value="Deporte">Deporte</option>
+                    <option value="Local">Local</option>
+                </select>
+
+                <label>Enlace de la Imagen:</label>
+                <input type="url" id="imagen" required>
+
+                <div class="checkbox-container">
+                    <input type="checkbox" id="es_opinion">
+                    <label for="es_opinion">Es Columna de Opinión</label>
+                </div>
+                <button type="submit" id="btn-publicar">Publicar Noticia</button>
+            </form>
+        </div>
+
+        <!-- Lista para borrar noticias -->
+        <div class="formulario-admin">
+            <h2>Administrar Noticias Publicadas</h2>
+            <div id="lista-borrar-noticias" style="margin-top: 1rem;">
+                <!-- Aquí JavaScript pondrá la lista -->
+            </div>
+        </div>
+
+    </main>
+    <script type="module" src="admin.js"></script>
+</body>
+</html>
