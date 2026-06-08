@@ -4,30 +4,54 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notitwitt - Las últimas noticias</title>
+    <link rel="icon" href="imagen_circular_recortada.png" type="image/png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- ENCABEZADO Y MENÚ -->
-    <header>
-        <div class="logo">
-            <a href="index.html">
-                <img src="imagen_circular_recortada.png" alt="Logo de Notitwitt">
-                <h1>Notitwitt</h1>
-            </a>
-        </div>
-        <nav>
-            
-            <ul>
-                <li><a href="#">Política</a></li>
-                <li><a href="#">Cultura</a></li>
-                <li><a href="#">Entretenimiento</a></li>
-                <li><a href="#">Deporte</a></li>
-                <li><a href="#">Local</a></li>
-                <li><a href="login.html" style="color: var(--azul-acento);">🔒 Editor</a></li>
 
+    <!-- BARRA AZUL FLOTANTE (10% MÁS GRANDE) -->
+    <div class="top-bar">
+        <nav>
+            <ul style="display: flex; align-items: center; gap: 1.2rem;">
+                <!-- EL LOGO DEL MENÚ (Agrandado a 40px) -->
+                <li>
+                    <a href="index.html" style="display: flex; align-items: center;">
+                        <img src="imagen_circular_recortada.png" alt="Inicio" style="height: 40px; border-radius: 50%;">
+                    </a>
+                </li>
+                <li><a href="index.html?categoria=Política">Política</a></li>
+                <li><a href="index.html?categoria=Cultura">Cultura</a></li>
+                <li><a href="index.html?categoria=Entretenimiento">Entretenimiento</a></li>
+                <li><a href="index.html?categoria=Deporte">Deporte</a></li>
+                <li><a href="index.html?categoria=Local">Local</a></li>
+                <li><a href="nosotros.html">Quiénes somos</a></li>
+                <li><a href="publicidad.html">Publicidad</a></li>
             </ul>
         </nav>
+        
+        <!-- ZONA DERECHA: EDITOR + REDES SOCIALES -->
+        <div class="top-bar-derecha" style="display: flex; align-items: center; gap: 20px;">
+            <a href="login.html" style="color: #93c5fd; font-weight: bold; text-decoration: none; font-size: 1.05rem;">🔒 Editor</a>
+            <div class="redes-sociales">
+                <a href="#">📘</a> <a href="#">🐦</a> <a href="#">📷</a> <a href="#">📺</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- BANNER CON TU GIF DE FONDO -->
+    <header class="brand-banner">
+        <!-- Como es un GIF, usamos img en lugar de video -->
+        <img src="Banner.gif" id="video-fondo" alt="Fondo Animado">
+        
+        <div class="banner-contenido">
+            <h1>Notitwit</h1>
+            <img src="imagen_circular_recortada.png" alt="Logo de Notitwitt">
+            <span class="slogan">Noticias<br>y opinión</span>
+        </div>
     </header>
+    
+
 
     <!-- CONTENIDO PRINCIPAL -->
     <div class="contenedor-principal">
@@ -69,24 +93,60 @@
                     <p class="autor">Por: María Gómez</p>
                 </article>
             </div>
+        <a href="index.html?opinion=true" class="btn-ver-todos">Ver todos los artículos de opinión →</a>    
         </aside>
 
     </div>
 
     <!-- SECCIÓN DE BOLETÍN (NEWSLETTER) -->
-    <section class="boletin">
-        <h2>Suscríbete a nuestro Boletín</h2>
-        <p>Recibe las mejores noticias directamente en tu correo electrónico.</p>
-        <form id="form-boletin">
-            <input type="email" id="email-boletin" placeholder="Tu correo electrónico" required>
-            <button type="submit">Suscribirme</button>
-        </form>
-    </section>
+    <!-- NUEVO FOOTER ESTILO IMAGEN -->
+    <footer class="footer-moderno">
+        <div class="footer-contenido">
+            
+            <div class="footer-boletin">
+                <h3>Suscríbete a nuestro newsletter</h3>
+                <form id="form-boletin">
+                    <input type="email" id="email-boletin" placeholder="Ingresa tu email aquí*" required>
+                    <button type="submit">Unirse</button>
+                </form>
+                <div class="redes-sociales-footer">
+                    <a href="#">📘</a> <a href="#">🐦</a> <a href="#">📷</a> <a href="#">📺</a>
+                </div>
+            </div>
 
-    <!-- PIE DE PÁGINA -->
-    <footer>
-        <p>&copy; 2024 Notitwitt. Todos los derechos reservados.</p>
+            <div class="footer-links">
+                <ul>
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="index.html">Categorías</a></li>
+                    <li><a href="index.html?opinion=true">Opinión</a></li>
+                    <li><a href="nosotros.html">Quiénes somos</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                    <li><a href="publicidad.html">Publicidad</a></li>
+                </ul>
+            </div>
+        </div>
+        <p class="copyright">© 2026 Creado por Edgar Alexis Gomez Hernandez. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- BOTONES FLOTANTES (SUBIR Y CHAT) -->
+    <button id="btn-subir">Subir arriba</button>
+    
+    <div id="chat-widget">
+        <button id="btn-chat">💬</button>
+        <div id="chat-box" class="oculto">
+            <div class="chat-header">
+                <strong>Notitwitt</strong>
+                <button id="cerrar-chat">✕</button>
+                <p>🟢 Te responderemos tan pronto como podamos</p>
+            </div>
+            <div class="chat-body"></div>
+            <div class="chat-input">
+                <input type="text" placeholder="Escribe tu mensaje...">
+            </div>
+        </div>
+    </div>
+
  <script type="module" src="app.js"></script>
+
 </body>
 </html>

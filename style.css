@@ -321,3 +321,189 @@ footer {
     box-shadow: 0 8px 15px rgba(0,0,0,0.5);
     cursor: pointer;
 }
+
+/* ==========================================
+   BARRA FLOTANTE Y BANNER CON VIDEO
+   ========================================== */
+.top-bar {
+    background-color: #1e3a8a; /* Azul corporativo */
+    padding: 0.8rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 9999; /* Asegura que el menú flote por encima de TODO */
+}
+
+.top-bar ul { margin: 0; gap: 1rem; }
+.top-bar a { font-size: 1.05rem; }
+.top-bar-derecha a { transition: color 0.3s; }
+.top-bar-derecha a:hover { color: white !important; }
+
+.redes-sociales a, .redes-sociales-footer a {
+    color: white;
+    text-decoration: none;
+    margin-left: 10px;
+    font-size: 1.2rem;
+}
+
+/* El banner ahora contiene un video */
+.brand-banner {
+    position: relative;
+    height: 250px; /* Altura del banner */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Corta el video si es más grande */
+    background-color: #0f172a; /* Fondo por si el video tarda en cargar */
+}
+
+#video-fondo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 1; /* Pone el video en el fondo */
+    opacity: 0.4; /* Oscurece el video para que la letra se lea bien */
+}
+
+.banner-contenido {
+    position: relative;
+    z-index: 2; /* Pone las letras por delante del video */
+    display: flex;
+    align-items: center;
+    color: white; /* Texto blanco para contrastar con el video */
+}
+
+.banner-contenido h1 {
+    font-size: 5rem;
+    font-weight: 900;
+    margin: 0;
+    letter-spacing: -2px;
+}
+
+.banner-contenido img {
+    height: 120px; /* Logo grande en medio */
+    margin: 0 20px;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5); /* Sombrita elegante */
+}
+
+.banner-contenido .slogan {
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-left: 4px solid #3b82f6;
+    padding-left: 15px;
+    line-height: 1.2;
+}
+
+/* ==========================================
+   NUEVO FOOTER Y BOTONES FLOTANTES
+   ========================================== */
+.footer-moderno {
+    background-color: #0f172a;
+    padding: 4rem 2rem 1rem 2rem;
+    margin-top: 3rem;
+    border-top: 1px solid #1e293b;
+}
+
+.footer-contenido {
+    display: flex;
+    justify-content: center;
+    gap: 5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.footer-boletin h3 { font-size: 1.2rem; margin-bottom: 1rem;}
+.footer-boletin form { display: flex; margin-bottom: 1rem; }
+.footer-boletin input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid white;
+    color: white;
+    padding: 0.5rem;
+    width: 250px;
+    border-radius: 0;
+}
+.footer-boletin button {
+    background-color: #3b82f6;
+    border: none;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.footer-links ul { list-style: none; }
+.footer-links li { margin-bottom: 0.8rem; }
+.footer-links a { color: white; text-decoration: none; font-weight: bold; }
+.footer-links a:hover { color: #3b82f6; }
+
+.copyright { text-align: center; margin-top: 3rem; font-size: 0.8rem; color: #94a3b8; }
+
+/* Botones flotantes */
+#btn-subir {
+    position: fixed;
+    bottom: 20px;
+    left: -35px;
+    transform: rotate(-90deg);
+    background: transparent;
+    color: #3b82f6;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+#chat-widget {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+#btn-chat {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+#chat-box {
+    position: absolute;
+    bottom: 80px;
+    right: 0;
+    width: 300px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.oculto { display: none; }
+
+.chat-header { background: white; color: black; padding: 15px; border-bottom: 1px solid #eee; }
+.chat-header strong { font-size: 1.2rem; display: block;}
+.chat-header p { font-size: 0.8rem; color: #666; margin-top: 5px;}
+#cerrar-chat { position: absolute; right: 15px; top: 15px; background: none; border: none; font-size: 1.2rem; cursor: pointer; }
+.chat-body { height: 250px; background: #2563eb; } /* Cuerpo azul como tu imagen */
+.chat-input { padding: 10px; background: white; }
+.chat-input input { width: 100%; border: none; outline: none; }
+
+.btn-ver-todos {
+    display: block;
+    text-align: center;
+    color: var(--azul-acento);
+    text-decoration: none;
+    font-weight: bold;
+    margin-top: 1rem;
+}
