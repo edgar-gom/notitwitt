@@ -35,11 +35,29 @@ header {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid var(--fondo-tarjetas);
+     /* ¡ESTO LO HACE FLOTANTE! */
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-header .logo img {
-    height: 40px; /* Altura del logo controlada */
-    border-radius: 4px;
+/* Estilos del Logo y su enlace */
+.logo a {
+    display: flex;
+    align-items: center; /* Alinea la imagen y el texto al centro verticalmente */
+    gap: 15px; /* Separación entre el búho y la letra */
+    text-decoration: none; /* Quita la línea de abajo del enlace */
+    color: var(--texto-titulos);
+}
+
+.logo img {
+    height: 60px; /* ¡Logo más grande! (Antes era 40px) */
+    border-radius: 50%; /* Como tu logo es circular, esto lo perfecciona */
+    transition: transform 0.3s;
+}
+
+.logo a:hover img {
+    transform: scale(1.1); /* Efecto cool: el logo crece un poquito al pasar el mouse */
 }
 
 nav ul {
@@ -93,6 +111,7 @@ nav a:hover {
     padding: 1rem;
     border-radius: 8px;
     transition: transform 0.2s;
+    position: relative; /* <--- ¡ESTO ES LO NUEVO! */
 }
 
 .tarjeta-noticia:hover {
@@ -284,4 +303,21 @@ footer {
 
 .formulario-admin button:hover {
     background-color: var(--azul-hover);
+}
+/* Truco MEJORADO para hacer toda la tarjeta clickeable */
+.tarjeta-noticia a::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+}
+
+/* Hacemos que el cursor muestre la "manita" en toda la tarjeta y resalte más */
+.tarjeta-noticia:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.5);
+    cursor: pointer;
 }
