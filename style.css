@@ -20,6 +20,8 @@ body {
     background-color: var(--fondo-principal);
     color: var(--texto-parrafos);
     line-height: 1.6;
+    overflow-x: hidden; /* ¡Esto corta cualquier elemento rebelde que se salga de la pantalla! */
+    width: 100%;
 }
 
 h1, h2, h3, h4 {
@@ -223,110 +225,82 @@ footer {
 /* ==========================================
    DISEÑO RESPONSIVE (Para Celulares y Tablets)
    ========================================== */
+   /* ==========================================
+   DISEÑO RESPONSIVE (Para Celulares y Tablets)
+   ========================================== */
 @media (max-width: 768px) {
     
-    /* 1. Barra superior: Logo a la izq, Hamburguesa a la der */
-    .top-bar {
-        justify-content: space-between;
-        padding: 0.8rem 1.5rem;
-    }
+    /* 1. BARRA SUPERIOR */
+    .top-bar { justify-content: space-between; padding: 0.8rem 1.5rem; }
+    .menu-movil-btn { display: block; background: transparent; color: white; border: none; font-size: 2rem; cursor: pointer; }
 
-    /* Mostrar botón hamburguesa */
-    .menu-movil-btn {
-        display: block;
-        background: transparent;
-        color: white;
-        border: none;
-        font-size: 2rem;
-        cursor: pointer;
-    }
-
-    /* 2. EL MENÚ AZUL DE PANTALLA COMPLETA */
+    /* 2. MENÚ AZUL DE PANTALLA COMPLETA */
     .menu-navegacion {
         position: fixed;
-        top: 0;
-        left: -100%; /* Oculto fuera de la pantalla por defecto */
-        width: 100%;
-        height: 100vh;
-        background-color: #2563eb; /* Color azul de tu foto */
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: flex-start;
-        padding: 5rem 2rem; /* Espacio interior */
-        margin: 0;
-        transition: left 0.3s ease-in-out; /* Animación de deslizamiento */
+        top: 0; left: -100%;
+        width: 100%; height: 100vh;
+        background-color: #2563eb;
+        flex-direction: column; justify-content: flex-start; align-items: flex-start;
+        padding: 5rem 2rem; margin: 0;
+        transition: left 0.3s ease-in-out;
         z-index: 10000;
     }
+    .menu-navegacion.abierto { left: 0; }
+    .cerrar-menu-btn { display: block; position: absolute; top: 20px; right: 20px; background: transparent; color: white; border: none; font-size: 2.5rem; cursor: pointer; }
+    .menu-navegacion ul { flex-direction: column; gap: 2rem; }
+    .menu-navegacion a { font-size: 1.5rem; font-weight: 300; }
+    .top-bar-derecha { flex-direction: column; align-items: flex-start; margin-top: 3rem; gap: 2rem; }
 
-    /* Clase que JavaScript agrega para abrirlo */
-    .menu-navegacion.abierto {
-        left: 0; 
-    }
-
-    /* Mostrar la "X" para cerrar */
-    .cerrar-menu-btn {
-        display: block;
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: transparent;
-        color: white;
-        border: none;
-        font-size: 2.5rem;
-        cursor: pointer;
-    }
-
-    /* Estilo de los links del menú en el celular */
-    .menu-navegacion ul {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    
-    .menu-navegacion a {
-        font-size: 1.5rem;
-        font-weight: 300;
-    }
-
-    .top-bar-derecha {
-        flex-direction: column;
-        align-items: flex-start;
-        margin-top: 3rem;
-        gap: 2rem;
-    }
-
-    /* 3. ARREGLAR EL BANNER (Para que Notitwit no se corte) */
+    /* 3. BANNER GIGANTE (Arreglado para no desbordar) */
     .brand-banner {
-        height: auto; /* Se adapta al contenido */
+        height: auto;
         padding: 2rem 1rem;
     }
-
     .banner-contenido {
-        flex-direction: column; /* Apila Título, Logo y Slogan hacia abajo */
+        flex-direction: column;
         text-align: center;
+        width: 100%;
     }
-
     .banner-contenido h1 {
-        font-size: 3.5rem; /* Letra ajustada */
-        margin-bottom: 10px;
+        font-size: 16vw; /* ¡La magia! La letra será el 16% del ancho de la pantalla */
+        line-height: 1;
+        margin-bottom: 0;
     }
-
     .banner-contenido img {
-        height: 80px;
-        margin: 10px 0;
+        height: 90px;
+        margin: 15px 0;
     }
-
     .banner-contenido .slogan {
-        border-left: none; /* Quita la raya lateral */
-        border-top: 3px solid #3b82f6; /* Pone raya arriba */
+        border-left: none;
+        border-top: 3px solid #3b82f6;
         padding-left: 0;
         padding-top: 10px;
-        margin-top: 10px;
     }
 
-    /* 4. Pie de página */
+    /* 4. COLUMNAS DE NOTICIAS Y OPINIÓN (Apilamiento forzado) */
+    .contenedor-principal {
+        flex-direction: column;
+        padding: 1rem;
+        width: 100%;
+    }
+    .noticias {
+        flex: 100%;
+        width: 100%;
+    }
+    .opinion {
+        flex: 100%;
+        width: 100%;
+        margin-top: 2rem; /* Separa la opinión de las noticias */
+    }
+    .grid-noticias {
+        grid-template-columns: 1fr; /* Fuerza a 1 sola columna en celular */
+    }
+
+    /* 5. PIE DE PÁGINA */
     .footer-contenido { flex-direction: column; text-align: center; gap: 2rem; }
     .footer-boletin form { flex-direction: column; align-items: center; gap: 10px; }
 }
+
 /* ==========================================
    ESTILOS DEL PANEL DE ADMINISTRADOR
    ========================================== */
