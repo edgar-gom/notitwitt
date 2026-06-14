@@ -11,32 +11,39 @@
     <!-- ENCABEZADO Y MENÚ -->
 
     <!-- BARRA AZUL FLOTANTE (10% MÁS GRANDE) -->
+    <!-- BARRA AZUL FLOTANTE -->
     <div class="top-bar">
-        <nav>
-            <ul style="display: flex; align-items: center; gap: 1.2rem;">
-                <!-- EL LOGO DEL MENÚ (Agrandado a 40px) -->
-                <li>
-                    <a href="index.html" style="display: flex; align-items: center;">
-                        <img src="imagen_circular_recortada.png" alt="Inicio" style="height: 40px; border-radius: 50%;">
-                    </a>
-                </li>
-                <li><a href="index.html?categoria=Política">Política</a></li>
-                <li><a href="index.html?categoria=Cultura">Cultura</a></li>
-                <li><a href="index.html?categoria=Entretenimiento">Entretenimiento</a></li>
-                <li><a href="index.html?categoria=Deporte">Deporte</a></li>
-                <li><a href="index.html?categoria=Local">Local</a></li>
+        
+        <!-- LOGO (Siempre visible) -->
+        <a href="index.html" class="top-bar-logo">
+            <img src="imagen_circular_recortada.png" alt="Inicio" style="height: 40px; border-radius: 50%;">
+        </a>
+
+        <!-- BOTÓN HAMBURGUESA (Solo visible en celulares) -->
+        <button id="btn-hamburguesa" class="menu-movil-btn">☰</button>
+
+        <!-- MENÚ DE NAVEGACIÓN (En PC se ve normal, en Celular se vuelve pantalla completa) -->
+        <nav id="menu-principal" class="menu-navegacion">
+            <!-- Botón X (Solo visible en celulares cuando está abierto) -->
+            <button id="btn-cerrar-menu" class="cerrar-menu-btn">✕</button>
+            
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html?categoria=Política">Categorías ▾</a></li>
+                <li><a href="index.html?opinion=true">Opinión</a></li>
                 <li><a href="nosotros.html">Quiénes somos</a></li>
+                <li><a href="contacto.html">Contacto</a></li>
                 <li><a href="publicidad.html">Publicidad</a></li>
             </ul>
-        </nav>
-        
-        <!-- ZONA DERECHA: EDITOR + REDES SOCIALES -->
-        <div class="top-bar-derecha" style="display: flex; align-items: center; gap: 20px;">
-            <a href="login.html" style="color: #93c5fd; font-weight: bold; text-decoration: none; font-size: 1.05rem;">🔒 Editor</a>
-            <div class="redes-sociales">
-                <a href="#">📘</a> <a href="#">🐦</a> <a href="#">📷</a> <a href="#">📺</a>
+            
+            <!-- Editor y Redes dentro del menú en móvil, a la derecha en PC -->
+            <div class="top-bar-derecha">
+                <a href="login.html" style="color: #93c5fd; font-weight: bold; text-decoration: none;">🔒 Editor</a>
+                <div class="redes-sociales">
+                    <a href="#">📘</a> <a href="#">🐦</a> <a href="#">📷</a> <a href="#">📺</a>
+                </div>
             </div>
-        </div>
+        </nav>
     </div>
 
     <!-- BANNER CON TU GIF DE FONDO -->

@@ -116,3 +116,22 @@ if (btnChat && chatBox && cerrarChat) {
 if (btnSubir) {
     btnSubir.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
+
+// ==========================================
+// MENÚ HAMBURGUESA PARA CELULARES
+// ==========================================
+const btnHamburguesa = document.getElementById('btn-hamburguesa');
+const btnCerrarMenu = document.getElementById('btn-cerrar-menu');
+const menuPrincipal = document.getElementById('menu-principal');
+
+if(btnHamburguesa && btnCerrarMenu && menuPrincipal) {
+    // Al hacer clic en ☰ le agregamos la clase "abierto"
+    btnHamburguesa.addEventListener('click', () => {
+        menuPrincipal.classList.add('abierto');
+    });
+
+    // Al hacer clic en ✕ le quitamos la clase "abierto"
+    btnCerrarMenu.addEventListener('click', () => {
+        menuPrincipal.classList.remove('abierto');
+    });
+}

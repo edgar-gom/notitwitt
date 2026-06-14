@@ -200,68 +200,132 @@ footer {
 }
 
 /* ==========================================
-   DISEÑO RESPONSIVE (Para Celulares y Tablets)
+   ELEMENTOS OCULTOS EN PC (Botones hamburguesa)
    ========================================== */
+.menu-movil-btn, .cerrar-menu-btn {
+    display: none; 
+}
+
+.menu-navegacion {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 2rem;
+}
+
+.top-bar-derecha {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
 /* ==========================================
    DISEÑO RESPONSIVE (Para Celulares y Tablets)
    ========================================== */
 @media (max-width: 768px) {
-    /* 1. Arreglar el Menú Azul (Apilarlo ordenadamente) */
+    
+    /* 1. Barra superior: Logo a la izq, Hamburguesa a la der */
     .top-bar {
+        justify-content: space-between;
+        padding: 0.8rem 1.5rem;
+    }
+
+    /* Mostrar botón hamburguesa */
+    .menu-movil-btn {
+        display: block;
+        background: transparent;
+        color: white;
+        border: none;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    /* 2. EL MENÚ AZUL DE PANTALLA COMPLETA */
+    .menu-navegacion {
+        position: fixed;
+        top: 0;
+        left: -100%; /* Oculto fuera de la pantalla por defecto */
+        width: 100%;
+        height: 100vh;
+        background-color: #2563eb; /* Color azul de tu foto */
         flex-direction: column;
-        padding: 0.5rem;
-    }
-    
-    .top-bar ul {
-        flex-wrap: wrap; /* Permite que los botones bajen a la siguiente línea */
-        justify-content: center;
-        gap: 0.5rem;
-    }
-    
-    .top-bar-derecha {
-        margin-top: 10px;
-        justify-content: center;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 5rem 2rem; /* Espacio interior */
+        margin: 0;
+        transition: left 0.3s ease-in-out; /* Animación de deslizamiento */
+        z-index: 10000;
     }
 
-    /* 2. Arreglar el Banner Gigante (Hacer letras más chicas) */
-    .brand-banner {
-        height: 150px; /* Banner más chaparrito */
-        padding: 1rem;
-    }
-    
-    .banner-contenido h1 {
-        font-size: 3rem; /* Letra más chica */
-    }
-    
-    .banner-contenido img {
-        height: 60px; /* Logo más chico */
-        margin: 0 10px;
-    }
-    
-    .banner-contenido .slogan {
-        font-size: 0.9rem;
-        padding-left: 10px;
+    /* Clase que JavaScript agrega para abrirlo */
+    .menu-navegacion.abierto {
+        left: 0; 
     }
 
-    /* 3. Arreglar las noticias y columnas de opinión */
-    .contenedor-principal {
-        flex-direction: column; /* Pone la opinión debajo de las noticias */
-        padding: 1rem;
+    /* Mostrar la "X" para cerrar */
+    .cerrar-menu-btn {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        background: transparent;
+        color: white;
+        border: none;
+        font-size: 2.5rem;
+        cursor: pointer;
     }
 
-    /* 4. Arreglar el Footer (Pie de página) */
-    .footer-contenido {
+    /* Estilo de los links del menú en el celular */
+    .menu-navegacion ul {
         flex-direction: column;
         gap: 2rem;
-        align-items: center;
-        text-align: center;
     }
     
-    .footer-boletin form {
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
+    .menu-navegacion a {
+        font-size: 1.5rem;
+        font-weight: 300;
     }
+
+    .top-bar-derecha {
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 3rem;
+        gap: 2rem;
+    }
+
+    /* 3. ARREGLAR EL BANNER (Para que Notitwit no se corte) */
+    .brand-banner {
+        height: auto; /* Se adapta al contenido */
+        padding: 2rem 1rem;
+    }
+
+    .banner-contenido {
+        flex-direction: column; /* Apila Título, Logo y Slogan hacia abajo */
+        text-align: center;
+    }
+
+    .banner-contenido h1 {
+        font-size: 3.5rem; /* Letra ajustada */
+        margin-bottom: 10px;
+    }
+
+    .banner-contenido img {
+        height: 80px;
+        margin: 10px 0;
+    }
+
+    .banner-contenido .slogan {
+        border-left: none; /* Quita la raya lateral */
+        border-top: 3px solid #3b82f6; /* Pone raya arriba */
+        padding-left: 0;
+        padding-top: 10px;
+        margin-top: 10px;
+    }
+
+    /* 4. Pie de página */
+    .footer-contenido { flex-direction: column; text-align: center; gap: 2rem; }
+    .footer-boletin form { flex-direction: column; align-items: center; gap: 10px; }
 }
 /* ==========================================
    ESTILOS DEL PANEL DE ADMINISTRADOR
