@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiénes Somos - Notitwit</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="imagen_circular_recortada.png" type="image/png">
+</head>
+<body>
+    <!-- Barra superior con menú -->
+    <div class="top-bar">
+        <a href="index.html" class="top-bar-logo"><img src="imagen_circular_recortada.png" alt="Inicio" style="height: 40px; border-radius: 50%;"></a>
+        <button id="btn-hamburguesa" class="menu-movil-btn">☰</button>
+        <nav id="menu-principal" class="menu-navegacion">
+            <button id="btn-cerrar-menu" class="cerrar-menu-btn">✕</button>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="index.html?opinion=true">Opinión</a></li>
+                <li><a href="nosotros.html" style="color: var(--azul-acento);">Quiénes somos</a></li>
+                <li><a href="publicidad.html">Publicidad</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- Contenedor del Texto -->
+    <main class="contenedor-principal" style="justify-content: center; align-items: center; min-height: 60vh;">
+        <div style="background: var(--fondo-tarjetas); padding: 3rem; border-radius: 8px; width: 100%; max-width: 800px; box-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+            <h1 style="color: var(--azul-acento); text-align: center; font-size: 2.5rem; margin-bottom: 1.5rem;">Quiénes Somos</h1>
+            
+            <div style="color: var(--texto-parrafos); font-size: 1.1rem; line-height: 1.8;">
+                <!-- ========================================================= -->
+                <!-- ¡BORRA ESTE COMENTARIO Y PEGA AQUÍ TU TEXTO DE NOSOTROS! -->
+                <p>Aquí va el primer párrafo de tu historia...</p>
+                <br>
+                <p>Aquí va el segundo párrafo de tu misión y visión...</p>
+                <!-- ========================================================= -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Simple -->
+    <footer style="text-align: center; padding: 2rem; background: var(--fondo-header); margin-top: auto;">
+        <p>© 2024 Notitwit. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- Script para que funcione el menú de celular -->
+    <script type="module" src="app.js"></script>
+</body>
+</html>

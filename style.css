@@ -254,7 +254,7 @@ footer {
     /* 3. BANNER GIGANTE (Arreglado para no desbordar) */
     .brand-banner {
         height: auto;
-        padding: 2rem 1rem;
+        padding: 2rem 1rem 4rem 1rem; /* Le damos 4rem de espacio abajo */
     }
     .banner-contenido {
         flex-direction: column;
