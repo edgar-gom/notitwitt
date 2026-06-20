@@ -15,10 +15,16 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-// 1. SEGURIDAD (EL CANDADO)
+// 1. SEGURIDAD (EL CANDADO MEJORADO)
 onAuthStateChanged(auth, (user) => {
     if (!user) {
-        window.location.href = "login.html"; // Si no hay sesión, lo patea al login
+        // Si no hay sesión, lo patea al login sin dejar rastro en el historial
+        window.location.replace("login.html"); 
+    } else {
+        // Si SÍ hay sesión, hacemos visible la página
+        document.body.style.display = "block";
+        // Y SOLO AHORA cargamos la lista de noticias para borrar
+        cargarListaNoticias();
     }
 });
 
@@ -88,4 +94,3 @@ contenedorBorrar.addEventListener('click', async (e) => {
 });
 
 // Cargar la lista al abrir la página
-cargarListaNoticias();
