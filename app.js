@@ -135,3 +135,56 @@ if(btnHamburguesa && btnCerrarMenu && menuPrincipal) {
         menuPrincipal.classList.remove('abierto');
     });
 }
+
+// ==========================================
+// CHAT REAL CON FIREBASE
+// ==========================================
+const btnChat = document.getElementById('btn-chat');
+const chatBox = document.getElementById('chat-box');
+const cerrarChat = document.getElementById('cerrar-chat');
+const btnSubir = document.getElementById('btn-subir');
+
+if (btnChat && chatBox && cerrarChat) {
+    btnChat.addEventListener('click', () => chatBox.classList.toggle('oculto'));
+    cerrarChat.addEventListener('click', () => chatBox.classList.add('oculto'));
+}
+
+if (btnSubir) {
+    btnSubir.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
+
+// Lógica de guardado en base de datos
+const btnEnviarChat = document.getElementById('enviar-chat');
+const inputChat = document.getElementById('mensaje-chat');
+const cuerpoChat = document.querySelector('.chat-body');
+
+if(btnEnviarChat) {
+    btnEnviarChat.addEventListener('click', async () => {
+        const textoMensaje = inputChat.value.trim();
+        
+        if(textoMensaje !== "") {
+            // 1. Muestra el mensaje del usuario en la pantallita
+            cuerpoChat.innerHTML += `<div style="background: white; color: black; margin: 10px; padding: 8px; border-radius: 8px; text-align: right; font-size: 0.9rem;">${textoMensaje}</div>`;
+            inputChat.value = ""; // Limpia la caja
+
+            try {
+                // 2. LO GUARDA EN FIREBASE DE VERDAD
+                await addDoc(collection(db, "mensajes_chat"), {
+                    mensaje: textoMensaje,
+                    fecha: new Date(),
+                    estado: "No leído"
+                });
+
+                // 3. Respuesta automática
+                setTimeout(() => {
+                    cuerpoChat.innerHTML += `<div style="background: #e2e8f0; color: black; margin: 10px; padding: 8px; border-radius: 8px; text-align: left; font-size: 0.9rem;">Mensaje recibido. El equipo de Notitwit lo leerá pronto. ¡Gracias!</div>`;
+                    // Hace que el chat baje automáticamente si hay muchos mensajes
+                    cuerpoChat.scrollTop = cuerpoChat.scrollHeight; 
+                }, 1000);
+
+            } catch (error) {
+                console.error("Error al enviar mensaje a Firebase:", error);
+            }
+        }
+    });
+}
