@@ -1,6 +1,4 @@
-// ==========================================
-// 1. IMPORTAMOS FIREBASE Y CONFIGURACIÓN
-// ==========================================
+// 1. IMPORTAMOS FIREBASE
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
@@ -17,7 +15,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // ==========================================
-// 2. LÓGICA DEL BOLETÍN
+// 2. LÓGICA DEL BOLETÍN (Segura)
 // ==========================================
 const formBoletin = document.getElementById('form-boletin');
 if (formBoletin) {
@@ -39,7 +37,7 @@ if (formBoletin) {
 }
 
 // ==========================================
-// 3. CARGAR NOTICIAS
+// 3. CARGAR NOTICIAS (Segura)
 // ==========================================
 const contenedorNoticias = document.getElementById('contenedor-noticias');
 const contenedorOpinion = document.getElementById('contenedor-opinion');
@@ -48,7 +46,7 @@ const categoriaFiltro = parametrosURL.get('categoria');
 const opinionFiltro = parametrosURL.get('opinion');
 
 async function cargarNoticias() {
-    if(!contenedorNoticias) return; 
+    if(!contenedorNoticias) return; // Si no hay contenedor (ej. en login), no hace nada
 
     try {
         const querySnapshot = await getDocs(collection(db, "noticias"));
@@ -103,41 +101,25 @@ async function cargarNoticias() {
 cargarNoticias();
 
 // ==========================================
-// 4. MENÚ HAMBURGUESA PARA CELULARES
-// ==========================================
-const btnHamburguesa = document.getElementById('btn-hamburguesa');
-const btnCerrarMenu = document.getElementById('btn-cerrar-menu');
-const menuPrincipal = document.getElementById('menu-principal');
-
-if(btnHamburguesa && btnCerrarMenu && menuPrincipal) {
-    btnHamburguesa.addEventListener('click', () => {
-        menuPrincipal.classList.add('abierto');
-    });
-    btnCerrarMenu.addEventListener('click', () => {
-        menuPrincipal.classList.remove('abierto');
-    });
-}
-
-// ==========================================
-// 5. INTERACTIVIDAD (CHAT Y SCROLL SEGURA)
+// 4. INTERACTIVIDAD (CHAT Y SCROLL SEGURA)
 // ==========================================
 const btnChat = document.getElementById('btn-chat');
 const chatBox = document.getElementById('chat-box');
 const cerrarChat = document.getElementById('cerrar-chat');
 const btnSubir = document.getElementById('btn-subir');
 
-// Abrir y cerrar chat
+// Funciones para abrir y cerrar
 if (btnChat && chatBox && cerrarChat) {
     btnChat.addEventListener('click', () => chatBox.classList.toggle('oculto'));
     cerrarChat.addEventListener('click', () => chatBox.classList.add('oculto'));
 }
 
-// Botón subir
+// Función para subir arriba
 if (btnSubir) {
     btnSubir.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 }
 
-// Lógica de ENVIAR CHAT
+// Funciones para ENVIAR el mensaje a Firebase
 const btnEnviarChat = document.getElementById('enviar-chat');
 const inputChat = document.getElementById('mensaje-chat');
 const cuerpoChat = document.querySelector('.chat-body');
@@ -147,12 +129,83 @@ if(btnEnviarChat) {
         const textoMensaje = inputChat.value.trim();
         
         if(textoMensaje !== "") {
-            // 1. Mostrar mensaje del usuario
+            // 1. Dibuja el mensaje del usuario
             cuerpoChat.innerHTML += `<div style="background: white; color: black; margin: 10px; padding: 8px; border-radius: 8px; text-align: right; font-size: 0.9rem;">${textoMensaje}</div>`;
-            inputChat.value = ""; 
+            inputChat.value = ""; // Limpia la caja
             
             try {
-                // 2. Guardar en Firebase
+                // 2. Guarda en la base de datos "mensajes_chat"
+                await addDoc(collection(db, "mensajes_chat"), {
+                    mensaje: textoMensaje,
+                    fecha: new Date(),
+                    estado: "No leído"
+                });
+
+                // 3. Respuesta del bot de Notitwit
+                setTimeout(() => {
+                    cuerpoChat.innerHTML += `<div style="background: #e2e8f0; color: black; margin: 10px; padding: 8px; border-radius: 8px; text-align: left; font-size: 0.9rem;">Mensaje recibido. El equipo de Notitwit lo leerá pronto. ¡Gracias!</div>`;
+                    // Baja el scroll automáticamente
+                    cuerpoChat.scrollTop = cuerpoChat.scrollHeight; 
+                }, 1000);
+
+            } catch (error) {
+                console.error("Error al guardar en Firebase:", error);
+            }
+        }
+    });
+}
+// ==========================================
+// MENÚ HAMBURGUESA PARA CELULARES
+// ==========================================
+const btnHamburguesa = document.getElementById('btn-hamburguesa');
+const btnCerrarMenu = document.getElementById('btn-cerrar-menu');
+const menuPrincipal = document.getElementById('menu-principal');
+
+if(btnHamburguesa && btnCerrarMenu && menuPrincipal) {
+    // Al hacer clic en ☰ le agregamos la clase "abierto"
+    btnHamburguesa.addEventListener('click', () => {
+        menuPrincipal.classList.add('abierto');
+    });
+
+    // Al hacer clic en ✕ le quitamos la clase "abierto"
+    btnCerrarMenu.addEventListener('click', () => {
+        menuPrincipal.classList.remove('abierto');
+    });
+}
+
+// ==========================================
+// CHAT REAL CON FIREBASE
+// ==========================================
+const btnChat = document.getElementById('btn-chat');
+const chatBox = document.getElementById('chat-box');
+const cerrarChat = document.getElementById('cerrar-chat');
+const btnSubir = document.getElementById('btn-subir');
+
+if (btnChat && chatBox && cerrarChat) {
+    btnChat.addEventListener('click', () => chatBox.classList.toggle('oculto'));
+    cerrarChat.addEventListener('click', () => chatBox.classList.add('oculto'));
+}
+
+if (btnSubir) {
+    btnSubir.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+}
+
+// Lógica de guardado en base de datos
+const btnEnviarChat = document.getElementById('enviar-chat');
+const inputChat = document.getElementById('mensaje-chat');
+const cuerpoChat = document.querySelector('.chat-body');
+
+if(btnEnviarChat) {
+    btnEnviarChat.addEventListener('click', async () => {
+        const textoMensaje = inputChat.value.trim();
+        
+        if(textoMensaje !== "") {
+            // 1. Muestra el mensaje del usuario en la pantallita
+            cuerpoChat.innerHTML += `<div style="background: white; color: black; margin: 10px; padding: 8px; border-radius: 8px; text-align: right; font-size: 0.9rem;">${textoMensaje}</div>`;
+            inputChat.value = ""; // Limpia la caja
+
+            try {
+                // 2. LO GUARDA EN FIREBASE DE VERDAD
                 await addDoc(collection(db, "mensajes_chat"), {
                     mensaje: textoMensaje,
                     fecha: new Date(),
@@ -162,11 +215,12 @@ if(btnEnviarChat) {
                 // 3. Respuesta automática
                 setTimeout(() => {
                     cuerpoChat.innerHTML += `<div style="background: #e2e8f0; color: black; margin: 10px; padding: 8px; border-radius: 8px; text-align: left; font-size: 0.9rem;">Mensaje recibido. El equipo de Notitwit lo leerá pronto. ¡Gracias!</div>`;
-                    cuerpoChat.scrollTop = cuerpoChat.scrollHeight; // Scroll abajo
+                    // Hace que el chat baje automáticamente si hay muchos mensajes
+                    cuerpoChat.scrollTop = cuerpoChat.scrollHeight; 
                 }, 1000);
 
             } catch (error) {
-                console.error("Error al guardar en Firebase:", error);
+                console.error("Error al enviar mensaje a Firebase:", error);
             }
         }
     });
