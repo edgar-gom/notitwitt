@@ -71,7 +71,8 @@ async function cargarNoticias() {
             } else if (categoriaFiltro) {
                 if (noticia.categoria === categoriaFiltro && noticia.es_opinion === false) mostrarEnPrincipal = true;
             } else {
-                if (noticia.es_opinion === false) mostrarEnPrincipal = true;
+                // AQUÍ ES EL CAMBIO: Si no hay filtros, mostramos TODAS (noticias y opiniones)
+                mostrarEnPrincipal = true; 
             }
 
             if (mostrarEnPrincipal) {
