@@ -31,6 +31,20 @@
             <!-- Aquí JavaScript inyectará la noticia completa -->
             <h2 style="text-align: center;">Cargando noticia...</h2>
         </article>
+        <!-- SECCIÓN DE COMENTARIOS -->
+        <div style="width: 100%; max-width: 800px; margin-top: 2rem; background: var(--fondo-tarjetas); padding: 2rem; border-radius: 8px;">
+            <h3 style="border-bottom: 1px solid #334155; padding-bottom: 10px;">Comentarios</h3>
+            
+            <form id="form-comentario" style="display: flex; flex-direction: column; gap: 10px; margin-top: 1rem;">
+                <input type="text" id="nombre-comentario" placeholder="Tu nombre" required style="padding: 10px; border-radius: 4px; border: 1px solid #334155; background: var(--fondo-principal); color: white;">
+                <textarea id="texto-comentario" placeholder="Escribe tu comentario..." rows="3" required style="padding: 10px; border-radius: 4px; border: 1px solid #334155; background: var(--fondo-principal); color: white;"></textarea>
+                <button type="submit" style="background: var(--azul-acento); color: white; border: none; padding: 10px; border-radius: 4px; font-weight: bold; cursor: pointer; align-self: flex-start;">Publicar comentario</button>
+            </form>
+
+            <div id="lista-comentarios" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 15px;">
+                <!-- Aquí aparecerán los comentarios -->
+            </div>
+        </div>
     </main>
 
     <script type="module" src="articulo.js"></script>
