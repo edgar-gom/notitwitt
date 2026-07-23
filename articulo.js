@@ -17,7 +17,7 @@ const parametrosURL = new URLSearchParams(window.location.search);
 const idNoticia = parametrosURL.get('id');
 const contenedor = document.getElementById('contenedor-articulo');
 
-// 1. CARGAR LA NOTICIA
+// 1. CARGAR LA NOTICIA Y EL AUTOR
 async function cargarArticuloCompleto() {
     if (!idNoticia) {
         contenedor.innerHTML = "<h2>Error: No se encontró la noticia.</h2>";
@@ -29,15 +29,23 @@ async function cargarArticuloCompleto() {
         if (documento.exists()) {
             const noticia = documento.data();
             const contenidoFormateado = noticia.contenido ? noticia.contenido.replace(/\n/g, '<br><br>') : "Contenido no disponible.";
+            
+            // Aquí definimos el autor (si no hay, dice Redacción)
+            const nombreAutor = noticia.autor ? noticia.autor : "Redacción Notitwit";
 
             contenedor.innerHTML = `
                 <span class="etiqueta">${noticia.categoria}</span>
                 <h1 style="margin-top: 1rem; font-size: 2.5rem; color: var(--azul-acento);">${noticia.titulo}</h1>
+                
+                <!-- ESTE ES EL TEXTO DEL AUTOR -->
+                <p style="font-size: 0.95rem; color: #94a3b8; font-style: italic; margin-top: 0.5rem;">
+                    Escrito por: <strong>${nombreAutor}</strong>
+                </p>
+
                 <img src="${noticia.imagen}" alt="Imagen de la noticia" style="width: 100%; border-radius: 8px; margin: 1.5rem 0;">
                 <p style="font-size: 1.2rem; line-height: 1.8; color: var(--texto-titulos);">${contenidoFormateado}</p>
             `;
             
-            // Después de cargar la noticia, cargamos sus comentarios
             cargarComentarios();
         } else {
             contenedor.innerHTML = "<h2>Esta noticia ya no existe.</h2>";
@@ -52,7 +60,6 @@ cargarArticuloCompleto();
 const formComentario = document.getElementById('form-comentario');
 const listaComentarios = document.getElementById('lista-comentarios');
 
-// Publicar Comentario
 if (formComentario) {
     formComentario.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -61,15 +68,15 @@ if (formComentario) {
         
         try {
             await addDoc(collection(db, "comentarios"), {
-                id_noticia: idNoticia, // Guardamos a qué noticia pertenece
+                id_noticia: idNoticia,
                 nombre: document.getElementById('nombre-comentario').value,
                 texto: document.getElementById('texto-comentario').value,
-                fecha: new Date().getTime() // Para ordenarlos después
+                fecha: new Date().getTime()
             });
             
             formComentario.reset();
             boton.textContent = "Publicar comentario";
-            cargarComentarios(); // Recargamos para ver el nuevo
+            cargarComentarios(); 
         } catch (error) {
             console.error("Error al publicar comentario:", error);
             boton.textContent = "Publicar comentario";
@@ -77,7 +84,6 @@ if (formComentario) {
     });
 }
 
-// Cargar Comentarios de esta noticia
 async function cargarComentarios() {
     if (!idNoticia) return;
     listaComentarios.innerHTML = "<p>Cargando comentarios...</p>";
@@ -91,7 +97,6 @@ async function cargarComentarios() {
             comentariosArray.push(doc.data());
         });
         
-        // Ordenamos los más nuevos primero
         comentariosArray.sort((a, b) => b.fecha - a.fecha);
 
         listaComentarios.innerHTML = "";

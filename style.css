@@ -575,3 +575,42 @@ footer {
     font-weight: bold;
     margin-top: 1rem;
 }
+
+/* ==========================================
+   MENÚ DESPLEGABLE DE CATEGORÍAS
+   ========================================== */
+.menu-categorias {
+    position: relative; /* Necesario para que el submenú sepa dónde aparecer */
+}
+
+.submenu {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--fondo-header);
+    list-style: none;
+    padding: 0.5rem 0;
+    min-width: 180px;
+    border-radius: 4px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    z-index: 9999;
+}
+
+/* Cuando pasas el mouse por "Categorías", se muestra el submenú */
+.menu-categorias:hover .submenu {
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* Quitamos la separación para que parezca una lista unida */
+}
+
+.submenu li a {
+    padding: 10px 15px;
+    display: block; /* Para que todo el cuadrito sea clickeable */
+    font-size: 0.95rem;
+}
+
+.submenu li a:hover {
+    background-color: var(--fondo-tarjetas);
+    color: var(--azul-acento);
+}
