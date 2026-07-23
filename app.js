@@ -172,3 +172,17 @@ if(btnEnviarChat) {
         }
     });
 }
+
+
+// ABRIR CHAT DESDE LOS ENLACES DE "CONTACTO"
+const enlacesContacto = document.querySelectorAll('.abrir-chat-link');
+enlacesContacto.forEach(enlace => {
+    enlace.addEventListener('click', (e) => {
+        e.preventDefault(); // Evita que la página salte hacia arriba
+        if (chatBox) {
+            chatBox.classList.remove('oculto');
+            // Si estás en el celular, cerramos el menú azul al abrir el chat
+            if (menuPrincipal) menuPrincipal.classList.remove('abierto');
+        }
+    });
+});
