@@ -45,7 +45,9 @@ formNoticia.addEventListener('submit', async (e) => {
         contenido: document.getElementById('contenido').value,
         categoria: document.getElementById('categoria').value,
         imagen: document.getElementById('imagen').value,
+        autor: document.getElementById('autor').value, // <-- NUEVA LÍNEA
         es_opinion: document.getElementById('es_opinion').checked
+        
     };
 
     try {
@@ -118,6 +120,7 @@ contenedorBorrar.addEventListener('click', async (e) => {
             document.getElementById('contenido').value = noticia.contenido;
             document.getElementById('categoria').value = noticia.categoria;
             document.getElementById('imagen').value = noticia.imagen || "";
+            document.getElementById('autor').value = noticia.autor || "";
             document.getElementById('es_opinion').checked = noticia.es_opinion || false;
             
             idNoticiaEditando = idNoticia; // Guardamos el ID que estamos editando
